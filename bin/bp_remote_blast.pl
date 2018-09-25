@@ -29,16 +29,16 @@ my ($sequencefile,$sequenceformat,$help, $entrez, $outputformat,
 $verbose) = (undef, 'fasta',undef, undef, undef, 1);
 
 &GetOptions('prog|p=s'               => \$prog,
-				'db|d=s'                 => \$db,
-				'expect|e=s'             => \$expect,
-				'blsmod|module|method=s' => \$method,
-				'input|i=s'              => \$sequencefile,  	
-				'format|f=s'             => \$sequenceformat,
-				'help|h'                 => \$help,
-				'entrez|z=s'             => \$entrez,
-				'output_format|t=s'      => \$outputformat,
-				'verbose|v=s'            => \$verbose
-			  );
+            'db|d=s'                 => \$db,
+            'expect|e=s'             => \$expect,
+            'blsmod|module|method=s' => \$method,
+            'input|i=s'              => \$sequencefile,
+            'format|f=s'             => \$sequenceformat,
+            'help|h'                 => \$help,
+            'entrez|z=s'             => \$entrez,
+            'output_format|t=s'      => \$outputformat,
+            'verbose|v=s'            => \$verbose
+);
 
 if( $help ) {
     exec('perldoc', $0);
@@ -56,10 +56,10 @@ if( !defined $sequencefile ) {
 }
 
 my $blastfactory = new Bio::Tools::Run::RemoteBlast ('-prog' => $prog,
-																	  '-data'      => $db,
-																	  '-expect'    => $expect,
-																	  'readmethod' => $method,
-																	 );
+                                                                      '-data'      => $db,
+                                                                      '-expect'    => $expect,
+                                                                      'readmethod' => $method,
+                                                                     );
 
 if ($entrez) {
   if ($verbose) {
@@ -78,15 +78,15 @@ if ($outputformat) {
 
 my $input;
 if( $sequenceformat !~ /fasta/ ) {
-	my @seqs;
-	my $seqio = new Bio::SeqIO('-format' => $sequenceformat,
-										'-file'   => $sequencefile );
-	while( my $seq = $seqio->next_seq() ) {
-		push @seqs, $seq;
-	}
-	$input = \@seqs;
+    my @seqs;
+    my $seqio = new Bio::SeqIO('-format' => $sequenceformat,
+                                        '-file'   => $sequencefile );
+    while( my $seq = $seqio->next_seq() ) {
+        push @seqs, $seq;
+    }
+    $input = \@seqs;
 } else {
-	$input = $sequencefile;
+    $input = $sequencefile;
 }
 
 my $r = $blastfactory->submit_blast($input);
@@ -120,7 +120,7 @@ while ( my @rids = $blastfactory->each_rid ) {
   }
   print STDERR scalar(@rids) . " left\n";
 }
-	
+
 
 __END__
 
