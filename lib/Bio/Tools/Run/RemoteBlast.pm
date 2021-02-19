@@ -71,7 +71,7 @@ via HTTP
             $factory->remove_rid($rid);
           }
           print STDERR "." if ( $v > 0 );
-          sleep 5;
+          sleep 10;
         } else {
           my $result = $rc->next_result();
           #save the output
